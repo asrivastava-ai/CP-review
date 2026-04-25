@@ -16,8 +16,9 @@ export async function processWordFile(file) {
   const arrayBuffer = await file.arrayBuffer();
   
   // Convert to HTML — mammoth preserves strikethrough as <s> tags
-  const result = await mammoth.convertToHtml(
-    { arrayBuffer },
+  const mammothLib = mammoth.default || mammoth;
+  const result = await mammothLib.convertToHtml(
+    { arrayBuffer: arrayBuffer },
     {
       styleMap: [
         "strike => s",
